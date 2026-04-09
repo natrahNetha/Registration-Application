@@ -13,5 +13,6 @@ public class EmployeDetails {
 	private String title;
 	private double price;
 	private String category;
+	
 
 }
