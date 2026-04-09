@@ -23,15 +23,21 @@ public class EmployeService {
 	 * 
 	 * }
 	 */
+	
+	private final WebClient webClient = WebClient.create("http://fakestoreapi.com");
 
-	private final WebClient webClient = WebClient.create("https://fakestoreapi.com");
 
 	public List<EmployeDetails> getProducts() {
 
-		return webClient.get().uri("/products").retrieve().bodyToFlux(EmployeDetails.class).collectList().block(); // convert
-																													// reactive
-																													// to
-																													// normal
-																													// list
+	    return webClient.get()
+	            .uri("/products")
+	            .retrieve()
+	            .onStatus(status -> status.isError(), response -> {
+	                System.out.println("Error status: " + response.statusCode());
+	                return response.createException();
+	            })
+	            .bodyToFlux(EmployeDetails.class)
+	            .collectList()
+	            .block();
 	}
 }
