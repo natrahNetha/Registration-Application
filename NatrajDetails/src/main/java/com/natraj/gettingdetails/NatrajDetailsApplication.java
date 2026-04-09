@@ -8,7 +8,7 @@ public class NatrajDetailsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NatrajDetailsApplication.class, args);
-		
+		System.out.println("Application Start");
 	}
 
 }
